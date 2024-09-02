@@ -88,6 +88,7 @@ describe('JobService', () => {
       job.id = 1;
       job.isPaid = false;
       job.contract = { client: { id: 1, balance: 1000 }, contractor: { id: 2 } } as any;
+      job.price = 500;
 
       const client = new Profile();
       client.id = 1;
@@ -111,7 +112,7 @@ describe('JobService', () => {
         cb(mockJobRepository.manager)
       );
 
-      await service.payForJob(1, 500, 1);
+      await service.payForJob(1, 1);
 
       expect(job.isPaid).toBe(true);
       expect(job.paidDate).toBeInstanceOf(Date);
@@ -127,10 +128,11 @@ describe('JobService', () => {
       const job = new Job();
       job.id = 1;
       job.isPaid = true;
+      job.price = 500;
 
       mockJobRepository.manager.findOne.mockResolvedValue(job);
 
-      await expect(service.payForJob(1, 500, 1)).rejects.toThrow('Job is already paid');
+      await expect(service.payForJob(1, 1)).rejects.toThrow('Job is already paid');
     });
 
     it('should throw error if client has insufficient balance', async () => {
@@ -138,6 +140,7 @@ describe('JobService', () => {
       job.id = 1;
       job.isPaid = false;
       job.contract = { client: { id: 1, balance: 200 }, contractor: { id: 2 } } as any;
+      job.price = 500;
 
       const client = new Profile();
       client.id = 1;
@@ -145,7 +148,7 @@ describe('JobService', () => {
 
       mockJobRepository.manager.findOne.mockResolvedValueOnce(job).mockResolvedValueOnce(client);
 
-      await expect(service.payForJob(1, 500, 1)).rejects.toThrow('Insufficient balance');
+      await expect(service.payForJob(1, 1)).rejects.toThrow('Insufficient balance');
     });
 
     it('should throw error if client is not found', async () => {
@@ -156,7 +159,7 @@ describe('JobService', () => {
 
       mockJobRepository.manager.findOne.mockResolvedValueOnce(job).mockResolvedValueOnce(null);
 
-      await expect(service.payForJob(1, 500, 1)).rejects.toThrow('Client not found');
+      await expect(service.payForJob(1, 1)).rejects.toThrow('Client not found');
     });
   });
 });

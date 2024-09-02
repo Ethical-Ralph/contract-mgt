@@ -27,9 +27,3 @@ export class JobDto {
   @IsDate()
   paidDate?: Date | null;
 }
-
-export class PaymentDto {
-  @ApiProperty({ example: 100.0, description: 'Amount to pay for the job' })
-  @IsNumber()
-  amount: number;
-}

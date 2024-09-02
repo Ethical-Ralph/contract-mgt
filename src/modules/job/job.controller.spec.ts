@@ -3,10 +3,10 @@ import { ExecutionContext } from '@nestjs/common';
 import { JobController } from './job.controller';
 import { JobService } from './job.service';
 import { PaginationDto, PaginationResultDto } from '../../base/pagination';
-import { JobDto, PaymentDto } from './dto/job.dto';
 import { HttpResponse } from '../../utils';
 import { IProfile } from '../../decorators';
 import { AuthGuard } from '../../guards';
+import { JobDto } from './dto/job.dto';
 
 describe('JobController', () => {
   let controller: JobController;
@@ -78,14 +78,13 @@ describe('JobController', () => {
         balance: 1000,
         type: 'client',
       };
-      const paymentDto: PaymentDto = { amount: 500 };
 
       mockJobService.payForJob.mockResolvedValue(undefined);
 
-      const result = await controller.payForJob(1, paymentDto, profile);
+      const result = await controller.payForJob(1, profile);
 
       expect(result).toEqual(HttpResponse.success({ data: null, message: 'Payment successful' }));
-      expect(mockJobService.payForJob).toHaveBeenCalledWith(1, paymentDto.amount, profile.id);
+      expect(mockJobService.payForJob).toHaveBeenCalledWith(1, profile.id);
     });
   });
 });

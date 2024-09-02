@@ -35,7 +35,7 @@ export class JobService {
     });
   }
 
-  async payForJob(jobId: number, amount: number, clientId: number): Promise<void> {
+  async payForJob(jobId: number, clientId: number): Promise<void> {
     return this.jobRepository.manager.transaction(async manager => {
       const job = await manager.findOne(Job, {
         where: { id: jobId },
@@ -61,7 +61,7 @@ export class JobService {
         ErrorHelper.NotFoundException('Client not found');
       }
 
-      if (client.balance < amount) {
+      if (Number(client.balance) < Number(job.price)) {
         ErrorHelper.BadRequestException('Insufficient balance');
       }
 
@@ -70,12 +70,8 @@ export class JobService {
         lock: { mode: 'pessimistic_write' },
       });
 
-      if (job.contract.client.balance < amount) {
-        ErrorHelper.BadRequestException('Insufficient balance');
-      }
-
-      client.balance -= amount;
-      contractor.balance += amount;
+      client.balance -= Number(job.price);
+      contractor.balance += Number(job.price);
 
       job.isPaid = true;
       job.paidDate = new Date();

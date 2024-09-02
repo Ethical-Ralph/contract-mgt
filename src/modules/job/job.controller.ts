@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import {
   ApiTags,
   ApiResponse,
@@ -9,9 +9,9 @@ import {
 import { JobService } from './job.service';
 import { PaginatedDto, PaginationDto } from '../../base/pagination';
 import { HttpResponse } from '../../utils';
-import { JobDto, PaymentDto } from './dto/job.dto';
 import { IProfile, Profile } from '../../decorators';
 import { AuthGuard } from '../../guards';
+import { JobDto } from './dto/job.dto';
 
 @ApiTags('jobs')
 @Controller('jobs')
@@ -39,12 +39,8 @@ export class JobController {
   @ApiParam({ name: 'job_id', type: Number, description: 'ID of the job to pay for' })
   @ApiResponse({ status: 200, description: 'Payment successful' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized access' })
-  async payForJob(
-    @Param('job_id') jobId: number,
-    @Body() paymentDto: PaymentDto,
-    @Profile() profile: IProfile
-  ) {
-    await this.jobService.payForJob(jobId, paymentDto.amount, profile.id);
+  async payForJob(@Param('job_id') jobId: number, @Profile() profile: IProfile) {
+    await this.jobService.payForJob(jobId, profile.id);
 
     return HttpResponse.success({ data: null, message: 'Payment successful' });
   }
