@@ -26,6 +26,7 @@ export class JobService {
       )
       .skip(query.skip)
       .take(query.limit)
+      .orderBy('job.createdAt', query.order)
       .getManyAndCount();
 
     return new PaginationResultDto(jobs, {

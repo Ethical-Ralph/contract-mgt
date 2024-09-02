@@ -94,6 +94,7 @@ describe('ContractService', () => {
         ],
         take: query.limit,
         skip: query.skip,
+        order: { createdAt: query.order },
       });
     });
   });

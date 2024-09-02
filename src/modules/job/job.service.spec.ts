@@ -15,6 +15,7 @@ describe('JobService', () => {
     andWhere: jest.fn().mockReturnThis(),
     skip: jest.fn().mockReturnThis(),
     take: jest.fn().mockReturnThis(),
+    orderBy: jest.fn().mockReturnThis(),
     getManyAndCount: jest.fn(),
     manager: {
       findOne: jest.fn(),
