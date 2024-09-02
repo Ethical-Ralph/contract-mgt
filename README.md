@@ -91,4 +91,12 @@ This endpoint provides an interactive interface for exploring the API endpoints 
 - `GET /admin/best-profession?start=<date>&end=<date>` - Get the profession that earned the most money within the specified date range.
 - `GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>` - Get the top clients who paid the most within the specified period.
 
+### Authentication
 
+All endpoints require Bearer authentication. To authenticate a request, include the `Authorization` header with the format:
+
+```
+Authorization: Bearer <profileID>
+```
+
+Replace `<profileID>` with the actual ID of the profile making the request.
