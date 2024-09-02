@@ -6,6 +6,7 @@ import { dataSource } from './database/datasource';
 import { JobModule } from './modules/job/job.module';
 import { ContractModule } from './modules/contract/contract.module';
 import { BaseModule } from './modules/base/base.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { BaseModule } from './modules/base/base.module';
     ContractModule,
     JobModule,
     BaseModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],
