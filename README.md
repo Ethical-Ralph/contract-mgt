@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project is a NestJS application with TypeORM for managing profiles, contracts, and jobs. It includes functionality for handling payments, deposits, and querying client and job data using appropriate transaction and row-locking mechanisms to balance race conditions and ensure data consistency. The application also provides API documentation through Swagger.
+This project is a NestJS application with TypeORM for managing profiles, contracts, and jobs. It includes functionality for handling payments, deposits, and querying client and job data using appropriate transaction and row-locking mechanisms to handle race conditions and ensure data consistency. The application also provides API documentation through Swagger.
 
 
 ## Setup
