@@ -45,7 +45,6 @@ export class JobService {
             contractor: true,
           },
         },
-        lock: { mode: 'pessimistic_write' },
       });
 
       if (job.isPaid) {
@@ -78,7 +77,7 @@ export class JobService {
 
       await manager.save(Profile, client);
       await manager.save(Profile, contractor);
-      await manager.save(Job, job);
+      await manager.update(Job, job.id, job);
     });
   }
 }

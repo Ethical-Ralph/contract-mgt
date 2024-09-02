@@ -21,6 +21,7 @@ describe('JobService', () => {
       findOne: jest.fn(),
       save: jest.fn(),
       transaction: jest.fn(),
+      update: jest.fn(),
     },
   };
 
@@ -121,7 +122,7 @@ describe('JobService', () => {
 
       expect(mockJobRepository.manager.save).toHaveBeenCalledWith(Profile, client);
       expect(mockJobRepository.manager.save).toHaveBeenCalledWith(Profile, contractor);
-      expect(mockJobRepository.manager.save).toHaveBeenCalledWith(Job, job);
+      expect(mockJobRepository.manager.update).toHaveBeenCalledWith(Job, job.id, job);
     });
 
     it('should throw error if job is already paid', async () => {
