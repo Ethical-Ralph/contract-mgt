@@ -19,8 +19,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter(app.get(ConfigService)));
 
-  app.setGlobalPrefix('/api');
-
   app.disable('x-powered-by');
 
   const config = new DocumentBuilder()

@@ -3,7 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envVarsSchema } from './helpers';
 import { dataSource } from './database/datasource';
+import { JobModule } from './modules/job/job.module';
 import { ContractModule } from './modules/contract/contract.module';
+import { BaseModule } from './modules/base/base.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { ContractModule } from './modules/contract/contract.module';
       dataSourceFactory: () => dataSource.initialize(),
     }),
     ContractModule,
+    JobModule,
+    BaseModule,
   ],
   controllers: [],
   providers: [],

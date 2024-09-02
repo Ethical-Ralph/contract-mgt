@@ -10,10 +10,10 @@ export interface IProfile {
 }
 
 export const Profile = createParamDecorator<string, ExecutionContext, string | IProfile>(
-  (data: string, ctx: ExecutionContext) => {
+  (_data: string, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     const { profile } = request;
 
-    return data ? profile?.[data] : profile;
+    return profile;
   }
 );

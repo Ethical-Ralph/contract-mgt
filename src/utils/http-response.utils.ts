@@ -1,4 +1,4 @@
-import { PaginationResultDto } from '../queries/dto/pagination.dto';
+import { PaginationResultDto } from '../base/pagination';
 
 export class HttpResponse {
   static success(payload: { data: any; message: string }) {
